@@ -6,6 +6,9 @@ img2 = cv.imread('./data/scenes/1/frameR/img1.png', cv.IMREAD_UNCHANGED)
 print('OpenCV: ', img1.shape)
 print('OpenCV: ', img2.shape)
 
+#Based on tutorial: https://www.andreasjakl.com/understand-and-apply-stereo-rectification-for-depth-maps-part-2/
+
+
 # 1. Detect keypoints and their descriptors
 # Based on: https://docs.opencv.org/master/dc/dc3/tutorial_py_matcher.html
 
