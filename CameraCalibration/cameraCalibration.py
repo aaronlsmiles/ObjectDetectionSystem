@@ -69,7 +69,7 @@ print(rvecs)
 print("tvecs : \n")
 print(tvecs)
 
-
+'''
 #Compute mean of reprojection error
 tot_error=0
 total_points=0
@@ -81,3 +81,34 @@ for i in range(len(objpoints)):
 
 mean_error=np.sqrt(tot_error/total_points)
 print ("Mean reprojection error: ", mean_error)
+'''
+################
+mean_error = 0
+for i in range(len(objpoints)):
+    imgpoints2, _ = cv2.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
+    error = cv2.norm(imgpoints[i], imgpoints2, cv2.NORM_L2)/len(imgpoints2)
+    mean_error += error
+print( "RMS(RP)E: {}".format(mean_error/len(objpoints)) )
+
+mean_error2 = 0
+for i in range(len(objpoints)):
+    imgpoints3, _ = cv2.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
+    error2 = cv2.norm(imgpoints[i], imgpoints3, cv2.NORM_L1)/len(imgpoints3)
+    mean_error2 += error2
+print( "MA(RP)E: {}".format(mean_error2/len(objpoints)) )
+mse = np.sqrt(mean_error2 / len(objpoints))
+print("MS(RP)E:", mse)
+
+mean_error = 0
+for i in range(len(objpoints)):
+    imgpoints4, _ = cv2.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
+    error = cv2.norm(imgpoints[i], imgpoints4, cv2.NORM_L2SQR)/len(imgpoints4)
+    mean_error += error
+print( "MS(RP)E 2: {}".format(mean_error/len(objpoints)) )
+
+# Save the camera calibration result for later use (we won't worry about rvecs / tvecs)
+np.save('mtx.npy', mtx) # save the camera matrix
+np.save('dist.npy', dist) # save the distortion coefficients
+
+#mtx = np.load('mtx.npy') # load the camera matrix
+#dist = np.load('dist.npy') # load the distortion coefficients

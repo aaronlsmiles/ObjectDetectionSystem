@@ -8,8 +8,8 @@ print("Press enter to start the process >> ")
 input()
 
 # Check for left and right camera IDs
-CamL_id = 3
-CamR_id = 2
+CamL_id = 0
+CamR_id = 1
 
 CamL= cv2.VideoCapture(CamL_id)
 CamR= cv2.VideoCapture(CamR_id)
@@ -22,13 +22,13 @@ cv2.imshow('imgL',frameL)
 cv2.imshow('imgR',frameR)
 
 if cv2.waitKey(0) & 0xFF == ord('y') or cv2.waitKey(0) & 0xFF == ord('Y'):
-    CamL_id = 3
-    CamR_id = 2
+    CamL_id = 0
+    CamR_id = 1
     print("Camera IDs maintained")
 
 elif cv2.waitKey(0) & 0xFF == ord('n') or cv2.waitKey(0) & 0xFF == ord('N'):
-    CamL_id = 2
-    CamR_id = 3
+    CamL_id = 1
+    CamR_id = 0
     print("Camera IDs swapped")
 else:
     print("Wrong input response")
@@ -38,7 +38,7 @@ CamL.release()
 
 CamL= cv2.VideoCapture(CamL_id)
 CamR= cv2.VideoCapture(CamR_id)
-output_path = "./data/X/"
+output_path = "./data/Y/"
 
 start = time.time()
 T = 10
